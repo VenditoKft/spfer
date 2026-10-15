@@ -26,6 +26,23 @@ res.Lookups         // RFC-counted DNS lookups (may exceed 10)
 
 `Match` is nil when no mechanism matched (default neutral, none) or when evaluation ended in an error.
 
+### All matching directives
+
+`Check` stops at the first match, like the RFC. `CheckAll` (and `CheckHostAll`) return the same result, plus every
+directive chain that matches the IP in `Matches`, e.g. to find overlapping entries:
+
+```go
+res := spfer.CheckAll(ctx, ip, "example.com")
+for _, m := range res.Matches {
+	fmt.Println(m)
+}
+// include:_spf.example.net -> ip4:192.0.2.1
+// ip4:192.0.2.0/24
+```
+
+Mechanisms of any qualifier are reported, except `all`. A `redirect` is only followed when nothing in its record
+matched. Subtrees that end in an error are skipped.
+
 ## Limits
 
 | Limit | Default | Kind | On breach |

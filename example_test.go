@@ -27,3 +27,14 @@ func ExampleCheck() {
 		}
 	}
 }
+
+func ExampleCheckAll() {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	res := spfer.CheckAll(ctx, netip.MustParseAddr("192.0.2.1"), "example.com")
+	fmt.Println("result:", res.Result)
+	for _, m := range res.Matches {
+		fmt.Println("matches via:", m)
+	}
+}

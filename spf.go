@@ -2,6 +2,8 @@
 //
 // Besides the RFC-strict result, it reports which directive matched (the full
 // include chain down to the leaf mechanism) and every error encountered.
+// CheckAll and CheckHostAll also report every other directive chain that
+// matches the IP.
 // Unlike a strict implementation, evaluation continues past the RFC processing
 // limits (10 DNS-mechanism lookups, 2 void lookups, 10 MX names), so the caller
 // also learns what the result would have been without them (EffectiveResult).
@@ -126,6 +128,10 @@ type CheckResult struct {
 	// Match is the directive chain that produced EffectiveResult, or nil when
 	// no mechanism matched (default neutral, none, or an error).
 	Match *Match
+	// Matches holds every directive chain whose leaf mechanism matches the IP,
+	// in record order. The all mechanism is not reported. Only CheckAll and
+	// CheckHostAll set it.
+	Matches []*Match
 	// Errors holds every issue encountered, in order of occurrence.
 	Errors []*Error
 	// Lookups is the number of RFC-counted DNS-mechanism lookups (include, a,
