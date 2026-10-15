@@ -37,11 +37,11 @@ version: ## Show the latest version, commits since, and the proposed next versio
 	@scripts/version.sh
 
 # Usage:
-#   make release              tag the proposed version
-#   make release BUMP=minor   force a major/minor/patch bump
-#   make release VERSION=v1.2.3
-.PHONY: release
-release: ## Tag and push a new version (BUMP=major|minor|patch or VERSION=vX.Y.Z)
+#   make publish              tag the proposed version
+#   make publish BUMP=minor   force a major/minor/patch bump
+#   make publish VERSION=v1.2.3
+.PHONY: publish
+publish: ## Tag and push a new version (BUMP=major|minor|patch or VERSION=vX.Y.Z)
 	@test -z "$$(git status --porcelain)" || { echo "working tree is not clean"; exit 1; }
 	@test "$$(git rev-parse --abbrev-ref HEAD)" = "$(BRANCH)" || { echo "not on $(BRANCH)"; exit 1; }
 	@git fetch --quiet --tags $(REMOTE) $(BRANCH)

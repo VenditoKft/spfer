@@ -7,7 +7,7 @@ Go library for evaluating SPF records (`github.com/VenditoKft/spfer`).
 - `make test` / `make race` — run tests (without / with the race detector)
 - `make check` — fmt + vet + race tests; same as CI. Run before committing.
 - `make version` — show latest tag, commits since, and proposed next version
-- `make release` — tag and push a new version (`BUMP=major|minor|patch` or `VERSION=vX.Y.Z` to override). Only run when the user asks.
+- `make publish` — tag and push a new version (`BUMP=major|minor|patch` or `VERSION=vX.Y.Z` to override). Only run when the user asks.
 
 CI (`.github/workflows/test.yml`) runs vet and race tests on every PR and push to `main`.
 
